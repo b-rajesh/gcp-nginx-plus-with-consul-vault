@@ -1,0 +1,10 @@
+{
+    "service": {
+      "Name": "weather-svc",
+      "Port": 3000,
+      "check": {
+        "args": ["curl", "localhost"],
+        "interval": "10s"
+      }
+    }
+}
