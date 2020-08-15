@@ -47,7 +47,7 @@ resource "google_compute_instance_group_manager" "nginx-plus-gwy-group-manager" 
   name               = "${random_pet.pet-prefix.id}-nginx-plus-gwy-instance-group-manager"
   base_instance_name = "nginx-plus-api-gwy"
   zone               = var.zones
-  target_size        = "1"
+  target_size        = var.nginx-plus-cluster-size
   target_pools       = [google_compute_target_pool.default.id]
   version {
     instance_template = google_compute_instance_template.nginx-plus-gwy-template.id

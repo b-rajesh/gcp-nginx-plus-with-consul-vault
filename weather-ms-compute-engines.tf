@@ -9,7 +9,7 @@ resource "google_compute_firewall" "microservice-firewall-rule" {
       "3000",
     ]
   }
-  source_tags = ["${random_pet.pet-prefix.id}-nginx-plus-api-gwy"]
+  source_tags = ["${random_pet.pet-prefix.id}-nginx-plus-api-gwy", var.consul_server_cluster_name]
 
   target_tags = [
     "${random_pet.pet-prefix.id}-microservices", //the firewall rule applies only to instances in the VPC network that have one of these tags, which would be for nginx instances through templates
@@ -49,11 +49,12 @@ resource "google_compute_instance_template" "weather-microservice-template" {
     access_config {
     }
   }
-  /* service_account {
+  service_account {
     scopes = [
       "https://www.googleapis.com/auth/compute",
     ]
-  } */
+  }
+  /* 
   service_account {
     email = null
     scopes = concat(
@@ -61,7 +62,7 @@ resource "google_compute_instance_template" "weather-microservice-template" {
       var.service_account_scopes,
     )
   }
-
+*/
   metadata_startup_script = data.template_file.startup_consul_client_and_apis.rendered //file("${path.module}/weather-startup.sh")
   lifecycle {
     create_before_destroy = true
@@ -73,16 +74,8 @@ resource "google_compute_instance_group_manager" "weather-microservice-group-man
   name               = "${random_pet.pet-prefix.id}-weather-ms-instance-group-manager"
   base_instance_name = "weather-microservice"
   zone               = var.zones
-  target_size        = "3"
-  //target_pools       = [google_compute_target_pool.ms-internal-target-pool.id]
+  target_size        = var.weather-api-cluster-size
   version {
     instance_template = google_compute_instance_template.weather-microservice-template.id
-  }
-}
-
-resource "null_resource" "weather-api-upstream" {
-  depends_on = [google_compute_region_backend_service.microservice-backend, google_compute_instance_template.nginx-plus-gwy-template, google_compute_forwarding_rule.ms-internal-lb-forwarding-rule, google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule]
-  provisioner "local-exec" {
-    command = "curl -X POST -d '{\"server\": \"${google_compute_forwarding_rule.ms-internal-lb-forwarding-rule.ip_address}:3000\"}' -s  'http://${google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule.ip_address}:8080/api/6/http/upstreams/weather_api/servers'"
   }
 }

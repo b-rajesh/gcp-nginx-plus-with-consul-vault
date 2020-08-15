@@ -46,16 +46,8 @@ resource "google_compute_instance_group_manager" "hello-nginx-microservice-group
   name               = "${random_pet.pet-prefix.id}-hello-nginx-ms-instance-group-manager"
   base_instance_name = "hello-nginx-microservice"
   zone               = var.zones
-  target_size        = "3"
-  //target_pools       = [google_compute_target_pool.ms-internal-target-pool.id]
+  target_size        = var.hello-nginx_-pi-cluster-size
   version {
     instance_template = google_compute_instance_template.hello-nginx-microservice-template.id
-  }
-}
-
-resource "null_resource" "hello-nginx-api-upstream" {
-  depends_on = [google_compute_region_backend_service.hello-nginx-microservice-backend, google_compute_instance_template.nginx-plus-gwy-template, google_compute_forwarding_rule.ms-internal-lb-forwarding-rule-hello-nginx, google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule]
-  provisioner "local-exec" {
-    command = "curl -X POST -d '{\"server\": \"${google_compute_forwarding_rule.ms-internal-lb-forwarding-rule-hello-nginx.ip_address}:3000\"}' -s  'http://${google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule.ip_address}:8080/api/6/http/upstreams/hello_nginx_api/servers'"
   }
 }

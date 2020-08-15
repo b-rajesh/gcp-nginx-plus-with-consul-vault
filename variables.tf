@@ -7,6 +7,11 @@ variable "machine_type" {}
 variable "f1_api_image" {}
 variable "hello_nginx_api_image" {}
 variable "consul-subnet" {}
+variable "nginx-plus-cluster-size" {}
+variable "weather-api-cluster-size" {}
+variable "f1-pi-cluster-size" {}
+variable "hello-nginx_-pi-cluster-size" {}
+
 variable "prefix" {
   description = "A prefix used for all resources in this example - keep it within 3-5 letters"
 }
