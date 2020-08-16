@@ -221,3 +221,71 @@ variable "consul_server_allowed_inbound_cidr_blocks_dns" {
   default     = ["0.0.0.0/0"]
 }
 
+# vault variables 
+variable "storage_bucket_name" {
+  type        = string
+  default     = "vault-data-bucket"
+  description = "Name of the Google Cloud Storage bucket for the Vault backend storage. This must be globally unique across of of GCP. If left as the empty string, this will default to: '<project-id>-vault-data'."
+}
+variable "storage_bucket_location" {
+  type        = string
+  description = "Location for the Google Cloud Storage bucket in which Vault data will be stored."
+}
+
+variable "storage_bucket_force_destroy" {
+  type        = string
+  default     = true
+  description = "Set to true to force deletion of backend bucket on `terraform destroy`"
+}
+
+variable "service_account_name" {
+  type        = string
+  default     = "vault-admin"
+  description = "Name of the Vault service account."
+
+}
+variable "kms_keyring" {
+  type        = string
+  default     = "kms-keyring-vault"
+  description = "Name of the Cloud KMS KeyRing for asset encryption. Terraform will create this keyring."
+}
+
+variable "kms_crypto_key" {
+  type        = string
+  default     = "kms-cryptokey-vault"
+  description = "The name of the Cloud KMS Key used for encrypting initial TLS certificates and for configuring Vault auto-unseal. Terraform will create this key."
+}
+
+variable "kms_protection_level" {
+  type        = string
+  default     = "software" #Possible values are SOFTWARE and HSM.
+  description = "The protection level to use for the KMS crypto key."
+}
+
+variable "vault-subnet" {
+  type        = string
+  description = "Name of Vault Subnet"
+}
+
+variable "vault_subnet_cidr" {
+  type        = string
+  description = "Subnet CIDR to deploy Vault"
+}
+variable "vault_allowed_cidrs" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+  description = "List of CIDR blocks to allow access to the Vault nodes. Since the load balancer is a pass-through load balancer, this must also include all IPs from which you will access Vault. The default is unrestricted (any IP address can access Vault). It is recommended that you reduce this to a smaller list."
+}
+
+variable "vault_min_num_servers" {
+  type        = string
+  default     = "1"
+  description = "Minimum number of Vault server nodes in the autoscaling group. The group will not have less than this number of nodes."
+}
+
+variable "vault_version" {
+  type        = string
+  default     = "1.5.0"
+  description = "Version of vault to install. This version must be 1.0+ and must be published on the HashiCorp releases service."
+
+}

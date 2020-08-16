@@ -92,4 +92,4 @@ Outputs:
 ```
 
 ## Highlevel Architecture
-![alt text](image/GCP-Highlevel-Archtitecture.png)
+![alt text](image/NGINX-Plus-Consul-GCP.png)

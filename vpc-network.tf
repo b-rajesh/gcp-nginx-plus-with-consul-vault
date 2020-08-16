@@ -42,6 +42,15 @@ resource "google_compute_subnetwork" "consul-sever-subnet" {
 
 }
 
+# Microservice Subnet
+resource "google_compute_subnetwork" "vault-sever-subnet" {
+  name          = "${random_pet.pet-prefix.id}-${var.vault-subnet}"
+  region        = var.region
+  network       = google_compute_network.vpc.name
+  ip_cidr_range = var.vault_subnet_cidr
+
+}
+
 
 resource "google_compute_address" "ext-lb-staticip-address" {
   name = "${random_pet.pet-prefix.id}-ngx-lb-static-ip"
