@@ -1,5 +1,5 @@
-# gcp-nginx-plus-with-nlb
-This project is to create GCP infrastructure usign Terraform to deploy nginx plus as API Gateway and load balanced with NLB
+# gcp-nginx-plus-with-consul
+This project is to create GCP infrastructure with NGINXplus, Consul Server and Consult client usign Terraform to deploy nginx plus as API Gateway and load balanced with NLB
 
 ## Pre-requisite 
     1. Build the nginxplus image using packer ,follow the instructions
