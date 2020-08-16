@@ -1,6 +1,6 @@
 # GKE specific variables
-prefix                   = " //keep it within 3-5 letters as the code is also generating unique petname along with it.
-project_id               = "Your-GCP-Project-Id" 
+prefix                   =  //keep it within 3-5 letters as the code is also generating unique petname along with it.
+project_id               = "You-GCP-Project-Id"
 region                   = "australia-southeast1"
 network                  = "gce-api-vpc"
 gwy_subnet               = "api-gwy-subnet"
@@ -11,7 +11,7 @@ microservice_subnet      = "microservice-subnet"
 microservice_subnet_cidr = "10.20.0.0/24"
 
 
-nginx-plus-image-name   = "nginxplus-r22-consul-1-8-3-v1"
+nginx-plus-image-name   = "nginxplus-r22-consul-1-8-3"
 nginx-plus-cluster-size = "1"
 
 weather_api_image        = "weather-api-v2"
