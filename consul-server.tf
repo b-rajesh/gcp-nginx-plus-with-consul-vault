@@ -69,7 +69,9 @@ resource "google_compute_instance_group_manager" "consul-server-group-manager" {
   base_instance_name = "consul-server"
   zone               = var.zones
   target_size        = var.consul_server_cluster_size
+  target_pools       = [google_compute_target_pool.consul_server_loadbalancer.id]
   version {
     instance_template = google_compute_instance_template.consul-server-template.id
   }
 }
+

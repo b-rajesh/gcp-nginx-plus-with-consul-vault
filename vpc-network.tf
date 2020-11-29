@@ -54,3 +54,6 @@ resource "google_compute_address" "ext-lb-staticip-address" {
   name = "${random_pet.pet-prefix.id}-ngx-lb-static-ip"
 }
 
+resource "google_compute_address" "consul_lb_staticip_address" {
+  name = "${random_pet.pet-prefix.id}-consul-lb-static-ip"
+}

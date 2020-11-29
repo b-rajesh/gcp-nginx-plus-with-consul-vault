@@ -22,3 +22,8 @@ output "admin_api_url" {
   description = "HTTPie command to access Admin API"
   value       = "http ${google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule.ip_address}:8080/api/6/http/upstreams"
 }
+
+output "consul_dashboard_url" {
+  description = "Consul UI"
+  value       = "http://${google_compute_forwarding_rule.consul_ext_lb_80_forwarding_rule.ip_address}:8500/ui"
+}
