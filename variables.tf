@@ -93,8 +93,8 @@ variable "consul_server_cluster_name" {
 variable "consul_server_cluster_size" {
   description = "The number of nodes to have in the Consul Server cluster. We strongly recommended that you use either 3 or 5."
   type        = number
-  default     = 3
 }
+
 variable "custom_metadata" {
   description = "A map of metadata key value pairs to assign to the Compute Instance metadata."
   type        = map(string)
