@@ -27,3 +27,9 @@ output "consul_dashboard_url" {
   description = "Consul UI"
   value       = "http://${google_compute_forwarding_rule.consul_ext_lb_80_forwarding_rule.ip_address}:8500/ui"
 }
+
+output "vpc_network" {
+  description = "VPC Netwroks"
+  value       = "${google_compute_network.vpc.name}"
+}
+
