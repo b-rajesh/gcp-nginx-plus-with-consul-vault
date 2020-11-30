@@ -17,11 +17,9 @@ variable "prefix" {
 }
 variable "nginx-plus-image-name" {
   description = "Assuming you would have run the packer to build the image, you could override this in terraform.tfvars"
-  default     = "nginxplus-r22"
 }
 variable "weather_api_image" {
   description = "Assuming you would have run the packer to build the image, you could override this in terraform.tfvars"
-  default     = "weather-api-v1"
 }
 variable "zones" {}
 variable "microservice_subnet" {}
