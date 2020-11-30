@@ -30,6 +30,6 @@ output "consul_dashboard_url" {
 
 output "vpc_network" {
   description = "VPC Netwroks"
-  value       = "${google_compute_network.vpc.name}"
+  value       = "${google_compute_network.vpc.self_link}"
 }
 
